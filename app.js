@@ -1,8 +1,10 @@
 const express = require("express");
 var cors = require("cors");
+const requestIp = require('request-ip');
 
 const app = express();
 app.use(cors());
+app.use(requestIp.mw())
 
 const path = require("path");
 const cookieParser = require("cookie-parser");
