@@ -5,7 +5,8 @@ const { API_KEY, URL_IP_API, URL_WEATHER_API, CNT } = require("../config/envs");
 
 exports.locationService = async function (res, req) {
   try {
-    const ip = req.ips
+    const ip = req.socket.remoteAddress
+    console.log(ip)
     if (ip == "::1" || "::ffff:127.0.0.1" || "127.0.0.1") {
       const response = await fetch(`${URL_IP_API}/json?fields`);
       const json = await response.json();
