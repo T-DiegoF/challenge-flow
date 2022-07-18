@@ -1,14 +1,15 @@
 const fetch = require("node-fetch");
 const requestIp = require("request-ip");
+var ip = require('ip');
 require("dotenv").config();
 const { API_KEY, URL_IP_API, URL_WEATHER_API, CNT } = require("../config/envs");
 
 exports.locationService = async function (res, req,next) {
   try {
-    const clientIp = requestIp.getClientIp(req); 
-    const response = await fetch(`${URL_IP_API}/json/${clientIp}`);
+    var ipPublic  = ip.address()
+    const response = await fetch(`${URL_IP_API}/json?fields${ipPublic}`);
     const json = await response.json();
-    console.log("IPPPP", clientIp)
+    console.log("IP:",ipPublic)
     return json;
     
   } catch (e) {
