@@ -6,19 +6,11 @@ const { API_KEY, URL_IP_API, URL_WEATHER_API, CNT } = require("../config/envs");
 exports.locationService = async function (res, req,next) {
   try {
     const clientIp = requestIp.getClientIp(req); 
+    const response = await fetch(`${URL_IP_API}/json/${clientIp}`);
+    const json = await response.json();
+    console.log("IPPPP", clientIp)
+    return json;
     
-    console.log("tipo de dato:", typeof(clientIp))
-    if (clientIp === "::1" || "::ffff:127.0.0.1" || "127.0.0.1") {
-      const response = await fetch(`${URL_IP_API}/json?fields`);
-      const json = await response.json();
-      console.log("IPPPP", clientIp)
-      return json;
-    } else {
-      const response = await fetch(`${URL_IP_API}/json/${clientIp}`);
-      const json = await response.json();
-      console.log("NO ES LOCAL")
-      return json;
-    }
   } catch (e) {
     throw new Error(e.message);
   }
